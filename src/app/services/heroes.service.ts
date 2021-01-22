@@ -12,7 +12,7 @@ export class HeroesService {
 
 
 
-  private heroes:Heroe[] = [
+  public heroes:Heroe[] = [
     {
       nombre: "Aquaman",
       bio: "El poder más reconocido de Aquaman es la capacidad telepática para comunicarse con la vida marina, la cual puede convocar a grandes distancias.",
@@ -67,5 +67,13 @@ export class HeroesService {
 
   getHeroes(): Heroe[]{
     return this.heroes;
+  }
+
+  getHeroe(id: number ): Heroe{
+    return this.heroes[id];
+  }
+
+  getHeroesByName(name: string ): Heroe[]{
+    return this.heroes.filter(heroe1 => heroe1.nombre.toLowerCase().includes(name.toLowerCase()));
   }
 }

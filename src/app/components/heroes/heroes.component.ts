@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroesService } from '../../services/heroes.service';
 import { Heroe } from '../../models/heroe';
-import { Router } from '@angular/router';
-import { relative } from 'path';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-heroes',
@@ -13,16 +12,28 @@ export class HeroesComponent implements OnInit {
 
   heroes: Heroe[]= [];
   constructor( private heroesService: HeroesService,
-    private router: Router) { }
+               private router: Router,
+               private activatedRoute: ActivatedRoute) {
+
+    this.activatedRoute.params.subscribe( params => {
+      if (typeof params !== 'undefined' && params['search'] !== undefined ) {
+        this.heroes = this.heroesService.getHeroesByName(params['search'])
+      }else{
+        this.heroes = this.heroesService.getHeroes();
+      }
+      
+    });
+  }
 
   ngOnInit(): void {
-    this.heroes = this.heroesService.getHeroes();
-    console.log(this.heroes);
+    
   }
 
   verHeroe (id: number): void{
     console.log(id);
     this.router.navigate(['/heroe',id]);
   }
+
+
 
 }

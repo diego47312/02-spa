@@ -13,6 +13,5 @@ export class Heroe {
         this.aparicion = aparicion;
         this.casa = casa;
     }
-    
 }
 
